@@ -64,8 +64,8 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID}}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-          application_name: user-micro
-          environment_name: User-micro-env
+          application_name: micro-user
+          environment_name: Micro-user-env
           version_label: ${{ github.SHA }}
           region: us-east-2
           deployment_package: user-micro-docker.jar
