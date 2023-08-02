@@ -15,7 +15,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
+  tests:
     name: Tests
     runs-on: ubuntu-latest
 
@@ -29,3 +29,23 @@ jobs:
         cache: maven
     - name: Run tests
       run: mvn -B test
+  build:
+    needs: tests
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+      - name: build app
+        run: mvn -B package -DsKipTests --file pom.xml
+      - name: Upload JAR
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifact
+          path: target/micro-0.0.1-SNAPSHOT.jar
